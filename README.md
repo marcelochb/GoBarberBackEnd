@@ -2,7 +2,7 @@
 Treinamento imersivo nas tecnologias mais modernas de desenvolvimento web e mobile
 ## GoBarber (Modulo02) - BackEnd
 Tecnologias utilizadas:
- - yYarn;
+ - Yarn;
  - ExpressJs;
  - JWT;
  - Mongoose;
