@@ -1,5 +1,7 @@
 # GoStack | Bootcamp online => RocketSeat
 Treinamento imersivo nas tecnologias mais modernas de desenvolvimento web e mobile
+![GoStack](https://rocketseat.com.br/static/images/bootcamp/logo-gostack.svg)
+
 ## GoBarber (Modulo02) - BackEnd
 Tecnologias utilizadas:
  - Yarn;
