@@ -36,7 +36,7 @@ class App {
       const errors = await new Youch(err, req).toJSON();
 
       return res.status(500).json(errors);
-    })
+    });
   }
 }
 
