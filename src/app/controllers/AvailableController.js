@@ -60,8 +60,16 @@ class AvailableController {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         available:
-          isAfter(value, format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx")) &&
-          !appointments.find(a => format(a.date, 'HH:mm') === time),
+          isAfter(
+            value,
+            format(
+              utcToZonedTime(new Date(), timezone),
+              'yyyy-MM-dd HH:mm:ssXXX',
+              {
+                timeZone: timezone,
+              }
+            )
+          ) && !appointments.find(a => format(a.date, 'HH:mm') === time),
         newdata: new Date(),
         UtcToZonedata: utcToZonedTime(new Date(), {
           timeZone: timezone,
