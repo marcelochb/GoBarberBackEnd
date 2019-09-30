@@ -7,7 +7,7 @@ import {
   format,
   isAfter,
 } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
 import { Op } from 'sequelize';
 import Appointment from '../models/Appointment';
 
@@ -59,10 +59,11 @@ class AvailableController {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         available:
-          isAfter(value, utcToZonedTime(new Date(), { timeZone: timezone })) &&
+          isAfter(value, new Date()) &&
           !appointments.find(a => format(a.date, 'HH:mm') === time),
-        data: utcToZonedTime(new Date(), { timeZone: timezone }),
         newdata: new Date(),
+        UtcToZonedata: utcToZonedTime(new Date(), { timeZone: timezone }),
+        zonedTimeToUtc: zonedTimeToUtc(new Date(), { timeZone: timezone }),
         timezone,
         timezoneLocal,
       };
