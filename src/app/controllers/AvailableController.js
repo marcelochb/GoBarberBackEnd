@@ -20,14 +20,7 @@ class AvailableController {
     }
 
     const searchDate = Number(date);
-    /** Convert date to local timezone */
-    const data =
-      new Date().getTimezoneOffset() ===
-      new Date(searchDate).getTimezoneOffset()
-        ? new Date()
-        : utcToZonedTime(new Date(), {
-            timeZone: new Date(searchDate).getTimezoneOffset(),
-          });
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const appointments = await Appointment.findAll({
       where: {
@@ -66,13 +59,8 @@ class AvailableController {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         available:
-          isAfter(value, new Date()) &&
+          isAfter(value, utcToZonedTime(new Date(), { timeZone: timezone })) &&
           !appointments.find(a => format(a.date, 'HH:mm') === time),
-        newDate: new Date(),
-        timezoneNewDate: new Date().getTimezoneOffset(),
-        DateParam: new Date(searchDate),
-        timezoneDateParam: new Date(searchDate).getTimezoneOffset(),
-        dataParamConvert: data,
       };
     });
 
