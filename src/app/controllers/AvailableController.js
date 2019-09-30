@@ -64,7 +64,7 @@ class AvailableController {
             value,
             format(
               utcToZonedTime(new Date(), timezone),
-              'yyyy-MM-dd HH:mm:ssXXX',
+              'yyyy-MM-dd HH:mm:ssxxx',
               {
                 timeZone: timezone,
               }
