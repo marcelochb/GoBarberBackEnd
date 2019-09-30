@@ -61,6 +61,7 @@ class AvailableController {
         available:
           isAfter(value, utcToZonedTime(new Date(), { timeZone: timezone })) &&
           !appointments.find(a => format(a.date, 'HH:mm') === time),
+        data: utcToZonedTime(new Date(), { timeZone: timezone }),
       };
     });
 
