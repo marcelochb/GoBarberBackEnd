@@ -20,6 +20,7 @@ class AvailableController {
     }
 
     const searchDate = Number(date);
+    const timezoneLocal = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const appointments = await Appointment.findAll({
       where: {
@@ -63,6 +64,7 @@ class AvailableController {
         data: utcToZonedTime(new Date(), { timeZone: timezone }),
         newdata: new Date(),
         timezone,
+        timezoneLocal,
       };
     });
 
