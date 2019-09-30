@@ -71,6 +71,7 @@ class AvailableController {
           timeZone: timezone,
           locale: pt,
         }),
+        formatData: format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"),
         timezone,
         timezoneLocal,
       };
