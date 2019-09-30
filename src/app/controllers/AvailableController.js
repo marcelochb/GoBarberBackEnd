@@ -61,12 +61,18 @@ class AvailableController {
         setMinutes(setHours(searchDate, hour), minute),
         0
       );
+
       return {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         available:
-          isAfter(value, data) &&
+          isAfter(value, new Date()) &&
           !appointments.find(a => format(a.date, 'HH:mm') === time),
+        newDate: new Date(),
+        timezoneNewDate: new Date().getTimezoneOffset(),
+        DateParam: new Date(searchDate),
+        timezoneDateParam: new Date(searchDate).getTimezoneOffset(),
+        dataParamConvert: data,
       };
     });
 
