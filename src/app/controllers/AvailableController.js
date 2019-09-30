@@ -13,14 +13,13 @@ import Appointment from '../models/Appointment';
 
 class AvailableController {
   async index(req, res) {
-    const { date } = req.query;
+    const { date, timezone } = req.query;
 
     if (!date) {
       return res.status(400).json({ error: 'Invalid date' });
     }
 
     const searchDate = Number(date);
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const appointments = await Appointment.findAll({
       where: {
