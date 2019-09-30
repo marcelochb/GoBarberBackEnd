@@ -71,9 +71,16 @@ class AvailableController {
           timeZone: timezone,
           locale: pt,
         }),
-        formatData: format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx", {
-          timeZone: timezone,
-        }),
+        formatData: format(
+          utcToZonedTime(new Date(), {
+            timeZone: timezone,
+            locale: pt,
+          }),
+          "yyyy-MM-dd'T'HH:mm:ssxxx",
+          {
+            timeZone: timezone,
+          }
+        ),
         UtcToZoneformatData: utcToZonedTime(
           format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"),
           {
