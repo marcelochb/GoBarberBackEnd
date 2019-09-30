@@ -6,6 +6,7 @@ import {
   setSeconds,
   format,
   isAfter,
+  parseISO,
 } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import { Op } from 'sequelize';
@@ -14,13 +15,20 @@ import Appointment from '../models/Appointment';
 class AvailableController {
   async index(req, res) {
     const { date } = req.query;
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     if (!date) {
       return res.status(400).json({ error: 'Invalid date' });
     }
 
-    const searchDate = utcToZonedTime(Number(date), { timeZone: timezone });
+    const searchDate = Number(date);
+
+    const data =
+      new Date().getTimezoneOffset() ===
+      new Date(searchDate).getTimezoneOffset()
+        ? new Date()
+        : utcToZonedTime(new Date(), {
+            timeZone: new Date(searchDate).getTimezoneOffset(),
+          });
 
     const appointments = await Appointment.findAll({
       where: {
@@ -58,7 +66,7 @@ class AvailableController {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         available:
-          isAfter(value, new Date()) &&
+          isAfter(value, data) &&
           !appointments.find(a => format(a.date, 'HH:mm') === time),
       };
     });
