@@ -6,7 +6,6 @@ import {
   setSeconds,
   format,
   isAfter,
-  parseISO,
 } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import { Op } from 'sequelize';
@@ -21,7 +20,7 @@ class AvailableController {
     }
 
     const searchDate = Number(date);
-
+    /** Convert date to local timezone */
     const data =
       new Date().getTimezoneOffset() ===
       new Date(searchDate).getTimezoneOffset()
