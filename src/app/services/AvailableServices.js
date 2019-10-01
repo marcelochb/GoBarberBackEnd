@@ -42,21 +42,22 @@ class AvailableServices {
 
     const available = schedule.map(time => {
       const [hour, minute] = time.split(':');
-      const value = utcToZonedTime(
-        format(
-          setSeconds(setMinutes(setHours(date, hour), minute), 0),
-          "yyyy-MM-dd'T'HH:mm:ssxxx"
-        ),
-        'America/Sao_Paulo'
-      );
+      const value = setSeconds(setMinutes(setHours(date, hour), minute), 0);
       return {
         time,
-        value: format(value, 'yyyy-MM-dd HH:mm:ssxxx', {
-          timeZone: 'America/Sao_Paulo',
-        }),
+        value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         available:
           isAfter(value, new Date()) &&
-          !appointments.find(a => format(a.date, 'HH:mm') === time),
+          !appointments.find(
+            a =>
+              format(
+                utcToZonedTime(
+                  format(a.date, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+                  'America/Sao_Paulo'
+                ),
+                'HH:mm'
+              ) === time
+          ),
       };
     });
 
