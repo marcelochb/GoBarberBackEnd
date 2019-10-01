@@ -7,6 +7,7 @@ import {
   format,
   isAfter,
 } from 'date-fns';
+import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz';
 import { Op } from 'sequelize';
 
 import Appointment from '../models/Appointment';
@@ -41,7 +42,13 @@ class AvailableServices {
 
     const available = schedule.map(time => {
       const [hour, minute] = time.split(':');
-      const value = setSeconds(setMinutes(setHours(date, hour), minute), 0);
+      const value = utcToZonedTime(
+        format(
+          setSeconds(setMinutes(setHours(date, hour), minute), 0),
+          "yyyy-MM-dd'T'HH:mm:ssxxx"
+        ),
+        'America/Sao_Paulo'
+      );
       return {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
