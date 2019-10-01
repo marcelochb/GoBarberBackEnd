@@ -7,7 +7,7 @@ import {
   format,
   isAfter,
 } from 'date-fns';
-import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz';
+import { utcToZonedTime } from 'date-fns-tz';
 import { Op } from 'sequelize';
 
 import Appointment from '../models/Appointment';
